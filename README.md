@@ -2,12 +2,12 @@
 AssociateDevOpsEngineer
 
 
-Chapter 1: What is DevOps?
+1. What is DevOps?
+2. Linux
+3. Git
+4. Automation
+5. Docker
+6. Observability
+7. Backup
 
-Chapter 2: Linux
-
-  1. Environment Setup: What is Hashicorp Packer and Vagrant?
-
-Packer: Prepare Image for OS Automatically
-Vagrant: Prepare Environment Automatically
 
