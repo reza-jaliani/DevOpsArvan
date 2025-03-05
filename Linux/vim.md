@@ -40,4 +40,8 @@
         o: Jump tp next line and go to insert mode
         O: Jump to a line before and go to insert mode
         num + char: All of these command can combine with numbers
-        
+        r: Replace a character without go in and out of insert mode
+        num + r: Replace #num chars with a specific character
+        R: Replace mode
+        cc: Delete a line and go to insert mode
+        cw: Delete a word and go to insert mode
