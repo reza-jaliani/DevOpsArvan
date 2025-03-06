@@ -31,7 +31,7 @@
         num + gg: start of line num th
         G: end of file
 
-**Functional Keys:**
+**Go to insert mode Keys:**
 
         i: Insert mode before cursor
         a: Insert mode after cursor
@@ -45,3 +45,5 @@
         R: Replace mode
         cc: Delete a line and go to insert mode
         cw: Delete a word and go to insert mode
+
+**Go to insert mode Keys:**
