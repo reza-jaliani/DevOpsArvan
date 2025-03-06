@@ -46,4 +46,21 @@
         cc: Delete a line and go to insert mode
         cw: Delete a word and go to insert mode
 
-**Go to insert mode Keys:**
+**Delete Keys:**
+
+        x: Delete a character
+        num + x: Delete n character(s)
+        dw: Delete a word
+        num + dw: delete n word(s)
+        d^: Delete from where cursor is to first of line
+        D: Delete from where cursor is to the end of line
+        d$: Delete from where cursor is to the end of line
+        dd: Delete all line
+        dap: Delete all lines to next new line. (Delete a paragraph)
+
+        **Delete is cut**
+
+**Copy Paste**
+
+        
+****
