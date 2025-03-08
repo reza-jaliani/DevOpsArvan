@@ -1,4 +1,4 @@
-Installation on Ubuntu:
+***Installation on Ubuntu:***
 
 
 To install HashiCorp Vagrant on Ubuntu, follow these steps:
@@ -59,3 +59,13 @@ Vagrant requires a provider to create and manage virtual machines. The most comm
 You can also install additional Vagrant plugins, such as vagrant-vbguest, which automatically installs the VirtualBox Guest Additions on the guest machine.
 
         vagrant plugin install vagrant-vbguest
+
+
+
+
+***Vagrant Commands***
+
+        ~/vagrant.d/boxes
+
+Vagrant boxes are pre-configured base images used by Vagrant to create and provision virtual machines (VMs).
+
