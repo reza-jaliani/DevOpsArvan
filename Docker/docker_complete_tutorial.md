@@ -1,23 +1,23 @@
-# 🐳 آموزش کامل Docker به زبان ساده
+# 🐳 Complete Docker Tutorial (Beginner-Friendly)
 
-این داکیومنت مرجع سریع و کاربردی برای شروع یادگیری Docker است. شامل مفاهیم پایه، دستورات مهم، ساخت ایمیج، مدیریت کانتینر، ولوم، شبکه و Docker Compose می‌باشد.
-
----
-
-## 🔹 مفاهیم پایه‌ای
-
-- **Image**: الگوی فقط‌خواندنی شامل تمام فایل‌های موردنیاز برای اجرای برنامه.
-- **Container**: نسخه اجرایی یک Image، محیطی ایزوله‌شده.
-- **Dockerfile**: فایلی متنی برای تعریف مراحل ساخت Image.
-- **Volume**: فضایی برای ذخیره دائمی داده‌ها بین کانتینرها.
-- **Network**: شبکه مجازی برای ارتباط بین کانتینرها.
-- **Docker Hub**: رجیستری عمومی برای اشتراک‌گذاری Imageها.
+This document is a comprehensive and practical guide to getting started with Docker. It covers basic concepts, essential commands, image creation, container management, volumes, networking, Docker Compose, and registries.
 
 ---
 
-## 🔧 نصب Docker
+## 🔹 Basic Concepts
 
-### روی Ubuntu:
+- **Image**: A read-only template used to create containers.
+- **Container**: A runnable instance of an image, isolated from the host system.
+- **Dockerfile**: A script containing instructions to build a Docker image.
+- **Volume**: Persistent storage that can be shared between containers.
+- **Network**: A virtual network allowing containers to communicate.
+- **Docker Hub**: A public registry for sharing Docker images.
+
+---
+
+## 🔧 Installing Docker
+
+### On Ubuntu:
 ```bash
 sudo apt update
 sudo apt install docker.io -y
@@ -26,41 +26,54 @@ sudo systemctl enable --now docker
 
 ---
 
-## ⚙️ دستورات پایه
+## ⚙️ Basic Commands
 
-### بررسی وضعیت:
+### Check Docker status:
 ```bash
 docker --version
 docker info
 ```
 
-### کار با کانتینرها:
+### Working with containers:
 ```bash
-docker run hello-world                      # تست نصب
-docker ps                                   # لیست کانتینرهای فعال
-docker ps -a                                # همه کانتینرها
-docker start <id>                           # شروع کانتینر
-docker stop <id>                            # توقف کانتینر
-docker rm <id>                              # حذف کانتینر
-docker logs <id>                            # مشاهده لاگ‌ها
-docker exec -it <id> bash                   # ورود به bash
+docker run hello-world                      # Test Docker installation
+docker ps                                   # List running containers
+docker ps -a                                # List all containers
+docker start <id>                           # Start a container
+docker stop <id>                            # Stop a container
+docker rm <id>                              # Remove a container
+docker logs <id>                            # View container logs
+docker exec -it <id> bash                   # Access shell inside container
 ```
 
-### کار با ایمیج‌ها:
+### Working with images:
 ```bash
-docker images                               # لیست ایمیج‌ها
-docker rmi <image_id>                       # حذف ایمیج
-docker pull ubuntu                          # دریافت ایمیج
-docker inspect <image_or_container_id>      # بررسی جزئیات
+docker images                               # List local images
+docker rmi <image_id>                       # Remove an image
+docker pull ubuntu                          # Download image from Docker Hub
+docker inspect <image_or_container_id>      # View detailed info
 ```
 
 ---
 
-## 🧱 ساخت Image با Dockerfile
+## 🧱 Creating Docker Images with Dockerfile
 
-**ساخت ساده Node.js:**
+To containerize an application, you'll typically create a `Dockerfile` with instructions to set up your app.
 
-`Dockerfile`:
+### 🔸 General Example for Any Language:
+
+```Dockerfile
+FROM alpine:latest
+WORKDIR /app
+COPY . .
+RUN apk add --no-cache gcc g++ make   # Example for compiled languages
+CMD ["./your-binary"]
+```
+
+You can adjust the base image and build steps based on the language or framework.
+
+### 🔹 Example: Dockerizing a Node.js App
+
 ```Dockerfile
 FROM node:18
 WORKDIR /app
@@ -70,16 +83,19 @@ COPY . .
 CMD ["node", "server.js"]
 ```
 
-سپس:
+Then run:
+
 ```bash
-docker build -t my-node-app .
-docker run -p 3000:3000 my-node-app
+docker build -t my-app .
+docker run -p 3000:3000 my-app
 ```
 
 ---
 
-## 📂 استفاده از .dockerignore
-برای جلوگیری از کپی فایل‌های غیرضروری به Image:
+## 📂 Using `.dockerignore`
+
+To avoid copying unnecessary files into the image, add a `.dockerignore` file:
+
 ```
 node_modules
 *.log
@@ -88,15 +104,15 @@ node_modules
 
 ---
 
-## 🗂️ مدیریت Volume
+## 🗂️ Volumes
 
-### ایجاد و استفاده:
+### Create and use a volume:
 ```bash
 docker volume create mydata
-docker run -v mydata:/app/data ubuntu
+docker run -v mydata:/app/data alpine
 ```
 
-### مشاهده و حذف:
+### Inspect or delete volumes:
 ```bash
 docker volume ls
 docker volume inspect mydata
@@ -105,9 +121,9 @@ docker volume rm mydata
 
 ---
 
-## 🌐 مدیریت Network
+## 🌐 Docker Networking
 
-### ایجاد و اتصال:
+### Create and use a custom network:
 ```bash
 docker network create mynet
 docker run -dit --name db --network=mynet mysql
@@ -118,7 +134,7 @@ docker run -dit --name app --network=mynet myapp
 
 ## 🧩 Docker Compose
 
-`docker-compose.yml`:
+`docker-compose.yml` example:
 ```yaml
 version: '3'
 services:
@@ -130,7 +146,7 @@ services:
     image: mongo
 ```
 
-سپس:
+Usage:
 ```bash
 docker compose up --build
 docker compose down
@@ -138,9 +154,9 @@ docker compose down
 
 ---
 
-## 🔐 Docker Registry (Optional)
+## 🔐 Docker Registry
 
-### لاگین و ارسال به Docker Hub:
+### Login and push to Docker Hub:
 ```bash
 docker login
 docker tag myapp username/myapp:latest
@@ -149,7 +165,7 @@ docker push username/myapp:latest
 
 ---
 
-## 🧹 پاک‌سازی منابع اضافی
+## 🧹 Clean Up Unused Resources
 
 ```bash
 docker container prune
@@ -160,4 +176,4 @@ docker system prune -a
 
 ---
 
-🟢 با اجرای این دستورات و مفاهیم، می‌تونی تقریباً هر پروژه‌ای رو داکرایز کنی!
+✅ With these fundamentals, you're ready to containerize and manage almost any application!
