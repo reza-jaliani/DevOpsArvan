@@ -1,0 +1,38 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "iso_url": "https://releases.ubuntu.com/20.04/ubuntu-20.04.6-live-server-amd64.iso",
+      "iso_checksum": "sha256:b8f31413336b9393ad5d8ef0282717b2ab19f007df2e9ed5196c13d8f9153c8b",
+      "ssh_username": "ubuntu",
+      "ssh_password": "ubuntu",
+      "vm_name": "ubuntu-20.04-vm",
+      "disk_size": 10240,
+      "memory": 1024,
+      "cpus": 1,
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--longmode", "on"],
+        ["modifyvm", "{{.Name}}", "--cpus", "2"],
+        ["modifyvm", "{{.Name}}", "--ioapic", "on"]
+      ],
+      "output_directory": "output-ubuntu-20.04",
+      "http_directory": "http",
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><wait>",
+        "<enter><wait>",
+        "/casper/vmlinuz ",
+        "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
+        "initrd=/casper/initrd ",
+        "--- <enter>"
+      ],
+      "boot_wait": "5s"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "provision.sh"
+    }
+  ]
+}
